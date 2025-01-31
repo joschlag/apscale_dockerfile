@@ -34,6 +34,6 @@ RUN conda init bash \
     && pip install apscale
 
 RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-ENV PATH=/root/miniconda3/envs/apscale/bin:$PATH
+RUN echo "conda activate apscale" >> ~/.bashrc
 
 CMD ["/bin/bash"]
