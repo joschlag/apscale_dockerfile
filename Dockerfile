@@ -33,7 +33,7 @@ RUN conda init bash \
     && conda clean -a -y \
     && pip install apscale
 
-RUN echo "source activate apscale" > ~/.bashrc
+RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 ENV PATH=/root/miniconda3/envs/apscale/bin:$PATH
 
-CMD ["source ~/.bashrc"]
+CMD ["/bin/bash"]
