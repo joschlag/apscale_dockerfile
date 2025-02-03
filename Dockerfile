@@ -24,7 +24,7 @@ RUN conda init bash \
     && conda install -n apscale cutadapt=4.1 -c defaults -c conda-forge -c bioconda \
     && conda activate apscale \
     && conda clean -a -y \
-    && pip install apscale==2.1.1
+    && pip install biopython==1.85 apscale==2.1.1
     
 #RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate apscale" >> ~/.bashrc
