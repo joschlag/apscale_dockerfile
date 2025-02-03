@@ -18,13 +18,13 @@ ENV PATH /opt/conda/bin:$PATH
 # create conda environment
 RUN conda init bash \
     && . ~/.bashrc \
-    && conda create --name apscale python=3.7 \
+    && conda create --name apscale python=3.8 \
     && conda install -n apscale vsearch=2.29.2 -c defaults -c conda-forge -c bioconda \
     && conda install -n apscale libzlib=1.3.1 -c defaults -c conda-forge -c bioconda \
     && conda install -n apscale cutadapt=4.1 -c defaults -c conda-forge -c bioconda \
     && conda activate apscale \
     && conda clean -a -y \
-    && pip install apscale
+    && pip install apscale==2.1.1
     
 #RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate apscale" >> ~/.bashrc
