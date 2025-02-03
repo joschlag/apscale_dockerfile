@@ -1,5 +1,7 @@
 FROM ubuntu:22.04
 
+ARG apscale
+
 # Install wget
 RUN apt-get update && \
     apt-get install -y wget && \
@@ -28,7 +30,7 @@ RUN conda init bash \
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Set the entry point to the script
-ENTRYPOINT ["/bin/bash", "/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "-l", "-c", "/usr/local/bin/entrypoint.sh"]
 
 #RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate apscale" >> ~/.bashrc
