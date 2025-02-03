@@ -12,11 +12,11 @@ RUN apt-get update \
 # Install Miniconda on x86
 RUN arch=$(uname -m) \
     && if [ "$arch" = "x86_64" ]; then \
-        MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-py39_24.11.1-0-Linux-x86_64.sh"; \
-      else \
-        echo "Unsupported architecture: $arch"; \
-      exit 1; \
-      fi \
+       MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-py39_24.11.1-0-Linux-x86_64.sh"; \
+       else \
+       echo "Unsupported architecture: $arch"; \
+       exit 1; \
+       fi \
     && wget $MINICONDA_URL -O miniconda.sh \
     && mkdir -p /root/.conda \
     && bash miniconda.sh -b -p /root/miniconda3 \
@@ -37,4 +37,3 @@ RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate apscale" >> ~/.bashrc
 
 CMD ["/bin/bash"]
-\
