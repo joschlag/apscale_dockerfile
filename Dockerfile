@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 ENV PATH="/root/miniconda3/envs/apscale/bin:${PATH}"
-ARG PATH="/root/miniconda3/envs/apscale/bin:${PATH}"
+ARG PATH="/root/miniconda3/bin:${PATH}"
 
 # Install wget
 RUN apt-get update \
