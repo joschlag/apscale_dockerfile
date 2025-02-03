@@ -24,6 +24,12 @@ RUN conda init bash \
     && conda clean -a -y \
     && pip install apscale
 
+# entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Set the entry point to the script
+ENTRYPOINT ["/bin/bash", "/usr/local/bin/entrypoint.sh"]
+
 #RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate apscale" >> ~/.bashrc
 
