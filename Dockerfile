@@ -1,26 +1,17 @@
 FROM ubuntu:22.04
 
-ENV PATH="/root/miniconda3/bin:${PATH}"
-ARG PATH="/root/miniconda3/bin:${PATH}"
-
 # Install wget
-RUN apt-get update \
-    && apt-get install -y wget \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y wget && \
+    apt-get clean
 
 # Install Miniconda on x86
-RUN arch=$(uname -m) \
-    && if [ "$arch" = "x86_64" ]; then \
-       MINICONDA_URL="https://repo.anaconda.com/miniconda/Miniconda3-py39_24.11.1-0-Linux-x86_64.sh"; \
-       else \
-       echo "Unsupported architecture: $arch"; \
-       exit 1; \
-       fi \
-    && wget $MINICONDA_URL -O miniconda.sh \
-    && mkdir -p /root/.conda \
-    && bash miniconda.sh -b -p /root/miniconda3 \
-    && rm -f miniconda.sh
+RUN wget "https://repo.anaconda.com/miniconda/Miniconda3-py39_24.11.1-0-Linux-x86_64.sh" -O /tmp/miniconda.sh \
+    && /bin/bash /tmp/miniconda.sh -b -p /opt/conda \
+    && rm -f /tmp/miniconda.sh
+
+# Add /opt/conda/bin to the PATH environment variable
+ENV PATH /opt/conda/bin:$PATH
 
 # create conda environment
 RUN conda init bash \
@@ -33,7 +24,7 @@ RUN conda init bash \
     && conda clean -a -y \
     && pip install apscale
 
-RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+#RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate apscale" >> ~/.bashrc
 
 CMD ["/bin/bash"]
