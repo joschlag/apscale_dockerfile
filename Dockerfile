@@ -35,4 +35,5 @@ ENTRYPOINT ["/bin/bash", "-l", "-c", "/usr/local/bin/entrypoint.sh"]
 #RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate apscale" >> ~/.bashrc
 
-CMD ["/bin/bash"]
+CMD ['conda', 'activate', 'apscale']
+#CMD ["/bin/bash"]
