@@ -20,7 +20,7 @@ jobs:
           id: build-docker-image
           run: |
             ls -la 
-            docker build . -f Dockerfile -t joschlag/apscale:2.1.1
+            docker build . -f Dockerfile -t joschlag/apscale:3.0.2
         - name: push the docker image
           id: push-docker-image
-          run: docker push ${{secrets.DOCKERHUB_USERNAME}}/apscale:2.1.1
+          run: docker push ${{secrets.DOCKERHUB_USERNAME}}/apscale:3.0.2

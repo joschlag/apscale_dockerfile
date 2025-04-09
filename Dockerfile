@@ -21,10 +21,10 @@ RUN conda init bash \
     && conda create --name apscale python=3.9 \
     && conda install -n apscale vsearch=2.29.2 -c defaults -c conda-forge -c bioconda \
     && conda install -n apscale libzlib=1.3.1 -c defaults -c conda-forge -c bioconda \
-    && conda install -n apscale cutadapt=4.1 -c defaults -c conda-forge -c bioconda \
+    && conda install -n apscale cutadapt=4.9 -c defaults -c conda-forge -c bioconda \
     && conda activate apscale \
     && conda clean -a -y \
-    && pip install biopython==1.84 apscale==2.1.1 pyyaml==6.0.2
+    && pip install biopython==1.84 apscale==3.0.2 pyyaml==6.0.2
     
 #RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate apscale" >> ~/.bashrc
