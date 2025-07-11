@@ -13,7 +13,7 @@ RUN wget "https://repo.anaconda.com/miniconda/Miniconda3-py39_24.11.1-0-Linux-x8
     && rm -f /tmp/miniconda.sh
 
 # Add /opt/conda/bin to the PATH environment variable
-ENV PATH /opt/conda/bin:$PATH
+ENV PATH=/opt/conda/bin:$PATH
 
 # create conda environment
 RUN conda init bash \
@@ -24,7 +24,7 @@ RUN conda init bash \
     && conda install -n apscale cutadapt=5.1 -c defaults -c conda-forge -c bioconda \
     && conda activate apscale \
     && conda clean -a -y \
-    && pip install biopython==1.84 apscale==4.0.1 pyyaml==6.0.2
+    && pip install biopython==1.85 apscale==4.0.1 pyyaml==6.0.2
     
 #RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate apscale" >> ~/.bashrc
