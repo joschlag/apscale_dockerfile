@@ -33,5 +33,5 @@ RUN echo "conda activate apscale" >> ~/.bashrc
 
 # Set the entry point to the script
 ENV PATH=/opt/conda/envs/apscale/bin:$PATH
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "apscale", "apscale"]
+ENTRYPOINT ["apscale"]
 
