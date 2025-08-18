@@ -30,6 +30,7 @@ RUN conda init bash \
     && conda run -n apscale pip install biopython==1.85 apscale==4.1.3 pyyaml==6.0.2 xlsxwriter==3.2.5
 
 RUN conda run -n apscale pip install xlsxwriter==3.2.5
+RUN conda install -y -c conda-forge -c bioconda xlsxwriter
     
 #RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate apscale" >> ~/.bashrc
