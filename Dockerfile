@@ -1,41 +1,41 @@
+
 FROM ubuntu:22.04
 
-ARG apscale
-
-# Install wget
+# Install basic tools
 RUN apt-get update && \
-    apt-get install -y wget && \
+    apt-get install -y wget bzip2 gzip && \
     apt-get clean
 
-# Install Miniconda on x86
+# Install Miniconda
 RUN wget "https://repo.anaconda.com/miniconda/Miniconda3-py39_24.11.1-0-Linux-x86_64.sh" -O /tmp/miniconda.sh \
     && /bin/bash /tmp/miniconda.sh -b -p /opt/conda \
     && rm -f /tmp/miniconda.sh
 
-# Add /opt/conda/bin to the PATH environment variable
+# Add Conda to PATH
 ENV PATH=/opt/conda/bin:$PATH
 
-# create conda environment
-RUN conda init bash \
-    && . ~/.bashrc \
-    && conda create --name apscale python=3.11 \
-    && conda install -n apscale vsearch=2.29.2 -c defaults -c conda-forge -c bioconda \
-    && conda install -n apscale libzlib=1.3.1 -c defaults -c conda-forge -c bioconda \
-    && conda install -n apscale xlsxwriter=3.2.5 -c defaults -c conda-forge -c bioconda \
-    && conda install -n apscale cutadapt=5.1 -c defaults -c conda-forge -c bioconda \
-    && conda install -n apscale swarm=3.1.5 -c defaults -c conda-forge -c bioconda \
-    && conda install -n apscale pytables -c conda-forge \
-    && conda activate apscale \
-    && conda clean -a -y \
-    && conda run -n apscale pip install biopython==1.85 apscale==4.1.3 pyyaml==6.0.2 xlsxwriter==3.2.5
+# Initialize conda for bash
+RUN conda init bash
 
-RUN conda run -n apscale pip install xlsxwriter==3.2.5
-RUN conda install -y -c conda-forge -c bioconda xlsxwriter
-    
-#RUN echo ". ~/miniconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-RUN echo "conda activate apscale" >> ~/.bashrc
+# Install Apscale dependencies
+RUN conda install -y python=3.11 \
+    vsearch=2.29.2 \
+    cutadapt=5.1 \
+    swarm=3.1.5 \
+    pytables \
+    libzlib \
+    -c defaults -c conda-forge -c bioconda && \
+    pip install biopython==1.85 apscale==4.1.4 pyyaml==6.0.2 && \
+    conda clean -a -y
 
-# Set the entry point to the script
-ENV PATH=/opt/conda/envs/apscale/bin:$PATH
+# Copy the modified j_generate_read_table.py to replace
+COPY modifications/j_generate_read_table.py /opt/conda/lib/python3.11/site-packages/apscale/j_generate_read_table.py
+
+# Automatically use base environment
+RUN echo "conda activate base" >> ~/.bashrc
+
+# PATH points to Conda base binaries
+ENV PATH=/opt/conda/bin:$PATH
+
+# Set entrypoint
 ENTRYPOINT ["apscale"]
-
