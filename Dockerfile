@@ -19,7 +19,7 @@ RUN conda init bash
 
 # Install Apscale dependencies
 RUN conda install -y python=3.11 \
-    vsearch=2.29.2 \
+    vsearch=2.30.0 \
     cutadapt=5.1 \
     swarm=3.1.5 \
     pytables \
