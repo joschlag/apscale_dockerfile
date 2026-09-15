@@ -19,13 +19,13 @@ RUN conda init bash
 
 # Install Apscale dependencies
 RUN conda install -y python=3.11 \
-    vsearch=2.29.2 \
+    vsearch=2.30.0 \
     cutadapt=5.1 \
     swarm=3.1.5 \
     pytables \
     libzlib \
     -c defaults -c conda-forge -c bioconda && \
-    pip install biopython==1.85 apscale==4.1.4 pyyaml==6.0.2 && \
+    pip install biopython==1.85 apscale==4.3.3 pyyaml==6.0.2 && \
     conda clean -a -y
 
 # Copy the modified j_generate_read_table.py to replace
